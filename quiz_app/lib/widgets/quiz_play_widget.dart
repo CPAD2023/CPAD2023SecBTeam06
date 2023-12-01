@@ -4,15 +4,16 @@ class OptionTile extends StatefulWidget {
   final String option, description, correctAnswer, optionSelected;
 
   OptionTile(
-      {required this.description, required this.correctAnswer, required this.option, required this.optionSelected});
+      {required this.description,
+      required this.correctAnswer,
+      required this.option,
+      required this.optionSelected});
 
   @override
   _OptionTileState createState() => _OptionTileState();
 }
 
 class _OptionTileState extends State<OptionTile> {
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,11 +34,10 @@ class _OptionTileState extends State<OptionTile> {
                     width: 1.5),
                 color: widget.optionSelected == widget.description
                     ? widget.description == widget.correctAnswer
-                    ? Colors.green.withOpacity(0.7)
-                    : Colors.red.withOpacity(0.7)
+                        ? Colors.green.withOpacity(0.7)
+                        : Colors.red.withOpacity(0.7)
                     : Colors.white,
-              borderRadius: BorderRadius.circular(24)
-            ),
+                borderRadius: BorderRadius.circular(24)),
             child: Text(
               widget.option,
               style: TextStyle(
@@ -50,9 +50,13 @@ class _OptionTileState extends State<OptionTile> {
           SizedBox(
             width: 8,
           ),
-          Text(widget.description, style: TextStyle(
-            fontSize: 17, color: Colors.black54
-          ),)
+          Text(
+            widget.description,
+            style: TextStyle(
+              fontSize: 17,
+              color: Colors.black54,
+            ),
+          )
         ],
       ),
     );

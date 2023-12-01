@@ -1,44 +1,43 @@
 import 'package:quiz_app/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthService{
+class AuthService {
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
-  FirebaseAuth _auth=FirebaseAuth.instance;
-
-  CustomUser? _userFromFirebaseUser(User user){
-    return user !=null ? CustomUser(uid:user.uid) : null;
+  CustomUser? _userFromFirebaseUser(User user) {
+    return user != null ? CustomUser(uid: user.uid) : null;
   }
 
-  Future signInEmailAndPassword(String email,String password) async {
-    try{
-      UserCredential authResult=await _auth.signInWithEmailAndPassword(email: email, password: password);
-      User? firebaseUser=authResult.user;
-      return _userFromFirebaseUser(firebaseUser!);
-    }catch(e){
+  Future signInEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential authResult = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User? firebaseUser = authResult.user;
+      // return _userFromFirebaseUser(firebaseUser!);
+      return firebaseUser!.uid;
+    } catch (e) {
       print(e.toString());
     }
   }
 
-
-
-  Future signUpEmailAndPassword(String email,String password) async {
-    try{
-      UserCredential authResult=await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      User? firebaseUser=authResult.user;
-      return _userFromFirebaseUser(firebaseUser!);
-    }catch(e){
+  Future signUpEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential authResult = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      User? firebaseUser = authResult.user;
+      // return _userFromFirebaseUser(firebaseUser!);
+      return firebaseUser!.uid;
+    } catch (e) {
       print(e.toString());
     }
   }
-
 
   Future signout() async {
-    try{
+    try {
       return await _auth.signOut();
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }
   }
-
 }
