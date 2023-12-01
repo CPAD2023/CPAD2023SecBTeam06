@@ -29,15 +29,16 @@ class _SignUpState extends State<SignUp> {
         _loading = true;
       });
 
-      await authService.signUpEmailAndPassword(email, password).then((value) {
+      await authService.signUpEmailAndPassword(email, password).then((uid) {
         Map<String, String> userInfo = {
           "userName": name,
           "email": email,
+          "role": "student",
         };
-        databaseService.addData(userInfo);
+        databaseService.addData(userInfo,uid);
 
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Home()));
+            context, MaterialPageRoute(builder: (context) => Home(uid: uid,)));
       });
     }
   }
@@ -51,7 +52,7 @@ class _SignUpState extends State<SignUp> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         iconTheme: IconThemeData(color: Colors.black87),
-        brightness: Brightness.light,
+        // brightness: Brightness.light,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 24),
